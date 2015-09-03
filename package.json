@@ -1,0 +1,52 @@
+{
+  "name": "react-priority-table",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app/scripts/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register",
+    "server": "http-server -p 9000 public",
+    "start": "parallelshell 'npm run watch' 'npm run server'",
+    "build": "browserify app/scripts/index.js > public/scripts/main.js --debug",
+    "livereload": "livereload public",
+    "watch": "parallelshell 'npm run watch:css' 'npm run watch:jade' 'npm run watch:js' 'npm run livereload'",
+    "watch:js": "watch 'npm run build' app/scripts",
+    "watch:css": "stylus --inline --watch --sourcemap-inline -u autoprefixer-stylus app/stylus/main.styl -o public/styles",
+    "watch:jade": "jade -H -w app/jade/ app/jade/ -o ./public",
+    "cover:prepare": "rm -Rf coverage",
+    "cover:run": "istanbul cover _mocha -- --compilers js:babel-core/register test/*spec.js",
+    "cover": "npm run cover:prepare; npm run cover:run"
+  },
+  "author": "Poltergeist",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer-stylus": "^0.7.0",
+    "babel-core": "^5.6.16",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "eslint": "^0.24.0",
+    "flux": "^2.0.3",
+    "http-server": "^0.8.0",
+    "istanbul": "^0.3.17",
+    "jade": "^1.11.0",
+    "livereload": "^0.3.7",
+    "mocha": "^2.2.5",
+    "parallelshell": "^1.2.0",
+    "react": "^0.13.3",
+    "stylus": "^0.51.1",
+    "watch": "^0.16.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "immutable": "^3.7.4",
+    "jsdom": "^6.0.0",
+    "lodash": "^3.10.1",
+    "mousetrap": "^1.5.3",
+    "sinon": "^1.15.4"
+  }
+}
